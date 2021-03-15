@@ -9,21 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
-        pair:
-          - elixir: 1.5.3
-            otp: 18.3.4.11
-          - elixir: 1.7.4
-            otp: 19.3.6.13
-          - elixir: 1.9.4
-            otp: 20.3.8.26
-          - elixir: 1.11.3
-            otp: 21.3.8.21
-          - elixir: 1.11.3
-            otp: 23.2.7
+        os: [ubuntu-16.04]
     steps:
       - uses: erlef/setup-elixir@v1
-        with:
-          otp-version: ${{matrix.pair.otp}}
-          elixir-version: ${{matrix.pair.elixir}}
+      - run: elixir --version
       - run: elixir -e 'IO.inspect :crypto.version()'
