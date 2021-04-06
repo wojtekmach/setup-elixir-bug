@@ -21,9 +21,11 @@ jobs:
             otp: 21.3.8.21
           - elixir: 1.11.3
             otp: 23.2.7
+          - elixir: 1.12.0-rc.0
+            otp: 24.0-rc2
     steps:
-      - uses: erlef/setup-elixir@v1
+      - uses: erlef/setup-elixir@v1.7
         with:
           otp-version: ${{matrix.pair.otp}}
           elixir-version: ${{matrix.pair.elixir}}
-      - run: elixir -e 'IO.inspect :crypto.version()'
+      - run: elixir -e ':inets.start(); :ssl.start(); IO.inspect :httpc.request(:head, {~c"https://api.github.com", [{~c"user-agent", ~c"httpc"}]}, [], [])'
